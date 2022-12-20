@@ -31,7 +31,7 @@ dag = DAG(
     catchup=False,
     concurrency=1,
     doc_md=__doc__,
-    tags=['spark']
+    tags=['python']
 )
 
 # Task to copy data from s3 to local

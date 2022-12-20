@@ -6,7 +6,6 @@ This dag is to show how to use Airflow BashOperator by copying some data using s
 from datetime import datetime
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
-from util.util import default_args
 
 # Declaring global parameters
 source_file = {
@@ -15,6 +14,15 @@ source_file = {
 }
 
 # DAG declaration
+default_args = {
+    "depends_on_past": False,
+    "catchup": False,
+    "retries": 2,
+    "retry_delay": timedelta(minutes=30),
+    "on_failure_callback": dag_failure_alert,
+    "execution_timeout": timedelta(hours=24),
+}
+
 dag = DAG(
     'bashOperatorExample',
     default_args=default_args,
